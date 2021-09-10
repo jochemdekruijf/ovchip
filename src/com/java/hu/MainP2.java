@@ -39,7 +39,7 @@ public class MainP2 {
         for (Reiziger r : reizigers) {
             System.out.println(r);
         }
-
+        System.out.println("");
         // Maakt een nieuwe reiziger aan en slaat deze op
         String gbd = "1881-05-14";
         Reiziger rei = new Reiziger(105, "K", "", "Janssen", java.sql.Date.valueOf(gbd));
@@ -47,10 +47,12 @@ public class MainP2 {
         rdao.save(rei);
         reizigers = rdao.findAll();
         System.out.println(reizigers.size() + " reizigers");
+        System.out.println("");
 
-        // Haalt een reizigers op id
+        // Haalt een reizigers op op id
         System.out.println("ReizigerDAO.findById() haalt de volgende reiziger op:");
         System.out.println(rdao.findById(105));
+        System.out.println("");
 
         // Haalt een reizigers op via geboortedatum
         reizigers = rdao.findByGbdatum("2002-09-17");
@@ -62,7 +64,7 @@ public class MainP2 {
 
         // Verandert de reiziger info
         System.out.println("Reiziger voor update:");
-        System.out.println(rdao.findById(105).toString());
+        System.out.println(rdao.findById(105));
         rei.setVoorletters("L");
         rei.setTussenvoegsel("de");
         rei.setAchternaam("Lange");
@@ -88,29 +90,28 @@ public class MainP2 {
         List<Adres> adressen = adao.findAll();
         System.out.println("AdresDAO.findAll() haalt de volgende adressen op:");
         for (Adres a : adressen) {
-            System.out.println(a.toString());
+            System.out.println(a);
         }
 
         // Voegt een nieuwe adres toe
-        System.out.println("Reiziger voor het toevoegingen van een adres:");
-        System.out.println(rdao.findById(105));
-        Adres a = new Adres(4, "1234AB", "12C", "teststraat", "groningen", rdao.findById(4));
+        System.out.println("Reiziger voor het toevoegen van een adres:");
+        System.out.println(rdao.findById(5));
+        Adres a = new Adres(4, "1234AB", "12C", "teststraat", "groningen", rdao.findById(5));
         adao.save(a);
         System.out.println(" Reiziger na het toevoeging van een adres:");
-        System.out.println(rdao.findById(105));
+        System.out.println(rdao.findById(5));
 
 
         // Verandert het adres
         System.out.println("Adres voor de update:");
-        System.out.println(a.toString());
+        System.out.println(a);
         a.setHuisnummer("6");
         adao.update(a);
         System.out.println("Adres na de update:");
         System.out.println(a);
 
         // Haalt het adres van de reiziger op
-        System.out.println("Adres van reiziger " + rdao.findById(105).getAdres() + ":");
-        System.out.println(adao.findByReiziger(rdao.findById(105)));
+        System.out.println("Adres van reiziger " + rdao.findById(5).getAdres() + ":");
 
         // Verwijdert het nieuwe adres
         adressen = adao.findAll();

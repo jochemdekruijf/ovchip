@@ -82,13 +82,13 @@ public class ReizigerDAOPsql implements ReizigerDAO{
     public Reiziger findById(int id) {
         adao = new AdresDAOPsql(conn);
 
-        Reiziger re = null;
+        Reiziger re = new Reiziger();
 
         try {
             String sql = "select * from reiziger where reiziger_id = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, id);
-            ResultSet result =  statement.executeQuery(sql);
+            ResultSet result =  statement.executeQuery();
 
 
             while(result.next()) {
