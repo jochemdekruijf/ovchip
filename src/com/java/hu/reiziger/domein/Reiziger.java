@@ -1,5 +1,6 @@
 package com.java.hu.reiziger.domein;
 
+import com.java.hu.OVChipkaart.domein.OVChipkaart;
 import com.java.hu.adres.domein.Adres;
 
 import java.sql.Date;
@@ -11,6 +12,7 @@ public class Reiziger {
     private String achternaam;
     private Date geboortedatum;
     private Adres adres;
+    private OVChipkaart ov;
 
     public Reiziger() {
     }

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface AdresDAO {
-    public boolean save (Adres adres) throws SQLException;
+    public boolean save (Adres adres);
     public boolean update (Adres Adres);
     public boolean delete (Adres Adres);
     public Adres findByReiziger (Reiziger reiziger);
