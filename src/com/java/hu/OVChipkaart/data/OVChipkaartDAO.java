@@ -11,6 +11,7 @@ public interface OVChipkaartDAO {
     public boolean save (OVChipkaart ov);
     public boolean update (OVChipkaart ov);
     public boolean delete (OVChipkaart ov);
-    public OVChipkaart findByReiziger (Reiziger reiziger);
+    public OVChipkaart findById (int id);
+    public OVChipkaart findByReiziger (int rid);
     public List<OVChipkaart> findAll ();
 }

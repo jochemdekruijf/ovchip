@@ -83,7 +83,7 @@ public class MainP2 {
 
     }
 
-    private static void testAdresDAO(AdresDAO adao , ReizigerDAO rdao) throws SQLException {
+    private static void testAdresDAO(AdresDAO adao , ReizigerDAO rdao) {
         System.out.println("Test AdresDAO:");
 
         // Haalt alle adressen op

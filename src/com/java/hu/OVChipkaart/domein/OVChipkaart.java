@@ -5,16 +5,20 @@ import java.sql.Date;
 public class OVChipkaart {
     private int kaartnummer;
     private Date gedigTot;
-    private String klasse;
+    private int klasse;
     private int saldo;
     private int reiziger_id;
 
-    public OVChipkaart(int kaartnummer, Date gedigTot, String klasse, int saldo, int reiziger_id) {
+    public OVChipkaart(int kaartnummer, Date gedigTot, int klasse, int saldo, int reiziger_id) {
         this.kaartnummer = kaartnummer;
         this.gedigTot = gedigTot;
         this.klasse = klasse;
         this.saldo = saldo;
         this.reiziger_id = reiziger_id;
+    }
+
+    public OVChipkaart() {
+
     }
 
     public int getKaartnummer() {
@@ -33,11 +37,11 @@ public class OVChipkaart {
         this.gedigTot = gedigTot;
     }
 
-    public String getKlasse() {
+    public int getKlasse() {
         return klasse;
     }
 
-    public void setKlasse(String klasse) {
+    public void setKlasse(int klasse) {
         this.klasse = klasse;
     }
 
@@ -55,5 +59,16 @@ public class OVChipkaart {
 
     public void setReiziger_id(int reiziger_id) {
         this.reiziger_id = reiziger_id;
+    }
+
+    @Override
+    public String toString() {
+        return "OVChipkaart{" +
+                "kaartnummer=" + kaartnummer +
+                ", gedigTot=" + gedigTot +
+                ", klasse='" + klasse + '\'' +
+                ", saldo=" + saldo +
+                ", reiziger_id=" + reiziger_id +
+                '}';
     }
 }
