@@ -4,6 +4,9 @@ import com.java.hu.OVChipkaart.data.OVChipkaartDAO;
 import com.java.hu.OVChipkaart.data.OVChipkaartDAOPsql;
 import com.java.hu.OVChipkaart.domein.OVChipkaart;
 import com.java.hu.adres.data.AdresDAOPsql;
+import com.java.hu.reiziger.data.ReizigerDAO;
+import com.java.hu.reiziger.data.ReizigerDAOPsql;
+import com.java.hu.reiziger.domein.Reiziger;
 
 
 import java.sql.Connection;
@@ -63,18 +66,42 @@ public class MainP4 {
         System.out.println(ovs.size() + " ovs");
         System.out.println();
 
-        // Haalt een ov op id
-        System.out.println("Haalt een ov op basis van id");
+        // Haalt een ov op reiziger id
+        System.out.println("Haalt een ov op basis van reiziger id");
         OVChipkaart o = ovdao.findByReiziger(2);
         System.out.println(o);
         System.out.println();
 
+    }
 
+    private static void testOVChipkaartReizigerBidirectionalRelation(OVChipkaartDAO ovdao, ReizigerDAO rdao){
+        System.out.println("test bidirectionele relatie");
+        Reiziger r = new Reiziger(205, "K", "", "Janssen", java.sql.Date.valueOf("2021-12-1"));
+        OVChipkaart ov2 = new OVChipkaart(1400, java.sql.Date.valueOf("2020-6-15"), 1, 1330, 205);
+        // set en persisteer de data
+        r.setOv(ov2);
+        rdao.save(r);
+        ovdao.save(ov2);
+
+        // haalt de data op
+        System.out.println("OV van de reiziger");
+        OVChipkaart o = ovdao.findByReiziger(r.getId());
+        System.out.println(o);
+        System.out.println();
+
+        System.out.println("Data van de reiziger van de ov");
+        Reiziger re = rdao.findById(o.getReiziger_id());
+        System.out.println(re);
+        System.out.println();
+
+        rdao.delete(r);
+        ovdao.delete(ov2);
     }
 
     public static void main(String[] args) throws SQLException {
         getConnection();
         testOVChipkaartDAO(new OVChipkaartDAOPsql(conn));
+        testOVChipkaartReizigerBidirectionalRelation(new OVChipkaartDAOPsql(conn), new ReizigerDAOPsql(conn));
         closeConnection();
     }
 }

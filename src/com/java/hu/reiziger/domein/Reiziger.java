@@ -74,6 +74,10 @@ public class Reiziger {
         this.adres = adres;
     }
 
+    public void setOv(OVChipkaart ov) {
+        this.ov = ov;
+    }
+
     @Override
     public String toString() {
         return "Reiziger{" +
@@ -84,4 +88,6 @@ public class Reiziger {
                 ", geboortedatum=" + geboortedatum +
                 '}';
     }
+
+
 }
