@@ -79,6 +79,8 @@ public class Adres {
                 ", huisnummer='" + huisnummer + '\'' +
                 ", straat='" + straat + '\'' +
                 ", woonplaats='" + woonplaats + '\'' +
+                ", reiziger achternaam='" + reiziger.getAchternaam() + '\'' +
+                ", reiziger voorletters='" + reiziger.getVoorletters() + '\'' +
                 '}';
     }
 

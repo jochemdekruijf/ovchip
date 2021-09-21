@@ -40,6 +40,7 @@ public class MainP2 {
             System.out.println(r);
         }
         System.out.println("");
+
         // Maakt een nieuwe reiziger aan en slaat deze op
         String gbd = "1881-05-14";
         Reiziger rei = new Reiziger(105, "K", "", "Janssen", java.sql.Date.valueOf(gbd));
@@ -61,25 +62,13 @@ public class MainP2 {
             System.out.println(r);
         }
 
-
-        // Verandert de reiziger info
-        System.out.println("Reiziger voor update:");
-        System.out.println(rdao.findById(105));
-        rei.setVoorletters("L");
-        rei.setTussenvoegsel("de");
-        rei.setAchternaam("Lange");
-        rei.setGeboortedatum(java.sql.Date.valueOf("1794-5-15"));
-        rdao.update(rei);
-        System.out.println("Reiziger info  na verandering:");
-        System.out.println(rdao.findById(105));
-        System.out.println();
-
         // Verwijdert de nieuwe reiziger
         reizigers = rdao.findAll();
         System.out.print("Vooraf " + reizigers.size() + " reizigers en erna ReizigerDAO.delete() ");
         rdao.delete(rei);
         reizigers = rdao.findAll();
         System.out.println(reizigers.size() + " reizigers");
+        System.out.println();
 
     }
 
@@ -92,6 +81,7 @@ public class MainP2 {
         for (Adres a : adressen) {
             System.out.println(a);
         }
+        System.out.println();
 
         // Voegt een nieuwe adres toe
         System.out.println("Reiziger voor het toevoegen van een adres:");
@@ -100,7 +90,7 @@ public class MainP2 {
         adao.save(a);
         System.out.println(" Reiziger na het toevoeging van een adres:");
         System.out.println(rdao.findById(5));
-
+        System.out.println();
 
         // Verandert het adres
         System.out.println("Adres voor de update:");
@@ -109,9 +99,11 @@ public class MainP2 {
         adao.update(a);
         System.out.println("Adres na de update:");
         System.out.println(a);
+        System.out.println();
 
         // Haalt het adres van de reiziger op
-        System.out.println("Adres van reiziger " + rdao.findById(5).getAdres() + ":");
+        System.out.println("Adres van reiziger  Postcode: " + rdao.findById(5).getAdres() + "" + ":");
+        System.out.println();
 
         // Verwijdert het nieuwe adres
         adressen = adao.findAll();
@@ -125,7 +117,7 @@ public class MainP2 {
     public static void main(String[] args) throws SQLException {
         getConnection();
         testReizigerDAO(new ReizigerDAOPsql(conn));
-        testAdresDAO(new AdresDAOPsql(conn), new ReizigerDAOPsql(conn));
+        testAdresDAO(new AdresDAOPsql(conn), new ReizigerDAOPsql(conn, new AdresDAOPsql(conn)));
         closeConnection();
 
     }

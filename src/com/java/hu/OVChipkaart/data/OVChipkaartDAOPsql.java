@@ -3,6 +3,7 @@ package com.java.hu.OVChipkaart.data;
 import com.java.hu.OVChipkaart.domein.OVChipkaart;
 import com.java.hu.adres.data.AdresDAOPsql;
 import com.java.hu.adres.domein.Adres;
+import com.java.hu.reiziger.data.ReizigerDAO;
 import com.java.hu.reiziger.domein.Reiziger;
 
 import java.sql.Connection;
@@ -14,9 +15,20 @@ import java.util.List;
 
 public class OVChipkaartDAOPsql  implements OVChipkaartDAO{
     private Connection conn;
+    private ReizigerDAO reizigerDAO;
 
     public OVChipkaartDAOPsql(Connection conn) {
         this.conn = conn;
+    }
+
+    public OVChipkaartDAOPsql(Connection conn, ReizigerDAO reizigerDAO) {
+        this.conn = conn;
+        this.reizigerDAO = reizigerDAO;
+//        reizigerDAO.setOVC(this);
+    }
+
+    public void setReizigerDAO(ReizigerDAO reizigerDAO) {
+        this.reizigerDAO = reizigerDAO;
     }
 
     @Override
@@ -28,7 +40,7 @@ public class OVChipkaartDAOPsql  implements OVChipkaartDAO{
             statement.setDate(2, ov.getGedigTot());
             statement.setInt(3, ov.getKlasse());
             statement.setInt(4, ov.getSaldo());
-            statement.setInt(5, ov.getReiziger_id());
+            statement.setInt(5, ov.getReiziger().getId());
 
             if(statement.executeUpdate() != 0) {
                 return true;
@@ -81,50 +93,23 @@ public class OVChipkaartDAOPsql  implements OVChipkaartDAO{
     }
 
     @Override
-    public OVChipkaart findById(int id) {
-        OVChipkaart ov = new OVChipkaart();
-
-        try {
-            String sql = "select * from ov_chipkaart where kaart_nummer = ?";
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setInt(1, id);
-            ResultSet result =  statement.executeQuery();
-
-
-            while(result.next()) {
-                ov.setKaartnummer(result.getInt("kaart_nummer"));
-                ov.setGedigTot(result.getDate("geldig_tot"));
-                ov.setKlasse(result.getInt("klasse"));
-                ov.setSaldo(result.getInt("saldo"));
-                ov.setReiziger_id(result.getInt("reiziger_id"));
-            }
-
-            result.close();
-
-        } catch (Exception e) {
-            e.getMessage();
-        }
-
-        return ov;
-    }
-
-    @Override
-    public OVChipkaart findByReiziger(int rid) {
-        OVChipkaart ov = new OVChipkaart();
+    public List<OVChipkaart> findByReiziger(Reiziger reiziger) {
+        List<OVChipkaart> ovList = new ArrayList<>();
 
         try {
             String sql = "select * from ov_chipkaart where reiziger_id = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setInt(1, rid);
+            statement.setInt(1, reiziger.getId());
             ResultSet result =  statement.executeQuery();
 
 
             while(result.next()) {
-                ov.setKaartnummer(result.getInt("kaart_nummer"));
-                ov.setGedigTot(result.getDate("geldig_tot"));
-                ov.setKlasse(result.getInt("klasse"));
-                ov.setSaldo(result.getInt("saldo"));
-                ov.setReiziger_id(result.getInt("reiziger_id"));
+                OVChipkaart  o = new OVChipkaart();
+                o.setKaartnummer(result.getInt("kaart_nummer"));
+                o.setGedigTot(result.getDate("geldig_tot"));
+                o.setKlasse(result.getInt("klasse"));
+                o.setSaldo(result.getInt("saldo"));
+                o.setReiziger(reiziger);
             }
 
             result.close();
@@ -133,7 +118,7 @@ public class OVChipkaartDAOPsql  implements OVChipkaartDAO{
             e.getMessage();
         }
 
-        return ov;
+        return ovList;
     }
 
     @Override
@@ -152,7 +137,8 @@ public class OVChipkaartDAOPsql  implements OVChipkaartDAO{
                 ov.setGedigTot(result.getDate("geldig_tot"));
                 ov.setKlasse(result.getInt("klasse"));
                 ov.setSaldo(result.getInt("saldo"));
-                ov.setReiziger_id(result.getInt("reiziger_id"));
+//               rdao.findById(result.getInt("reiziger_id"));
+//                ov.setReiziger(result.getInt("reiziger_id"));
                 ovs.add(ov);
             }
             return ovs;

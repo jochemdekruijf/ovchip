@@ -4,6 +4,7 @@ import com.java.hu.OVChipkaart.domein.OVChipkaart;
 import com.java.hu.adres.domein.Adres;
 
 import java.sql.Date;
+import java.util.List;
 
 public class Reiziger {
     private int id;
@@ -12,7 +13,7 @@ public class Reiziger {
     private String achternaam;
     private Date geboortedatum;
     private Adres adres;
-    private OVChipkaart ov;
+    private List<OVChipkaart> ovs;
 
     public Reiziger() {
     }
@@ -74,20 +75,39 @@ public class Reiziger {
         this.adres = adres;
     }
 
-    public void setOv(OVChipkaart ov) {
-        this.ov = ov;
+    public void setOvs(List<OVChipkaart> ovs) {
+        this.ovs = ovs;
+    }
+
+    public List<OVChipkaart> getOvs() {
+        return ovs;
     }
 
     @Override
     public String toString() {
+//        String postcode = "";
+//        String huisnummer = "";
+//
+//        if (adres !=  null) {
+//            if (adres.getPostcode() != null) {
+//                adres.getPostcode();
+//            }
+//
+//            if (adres.getHuisnummer() != null) {
+//                adres.getPostcode();
+//            }
+//        }
+
         return "Reiziger{" +
                 "id=" + id +
                 ", voorletters='" + voorletters + '\'' +
                 ", tussenvoegsel='" + tussenvoegsel + '\'' +
                 ", achternaam='" + achternaam + '\'' +
-                ", geboortedatum=" + geboortedatum +
+                ", geboortedatum=" + geboortedatum + '\'' +
+                ", postcode =" + adres.getPostcode() +
+                ", huisnummer =" + adres.getHuisnummer() +
+                ", ovs=" + ovs +
                 '}';
     }
-
 
 }

@@ -11,10 +11,19 @@ import java.util.List;
 
 public class AdresDAOPsql implements AdresDAO{
     private Connection conn;
-    ReizigerDAO reizigerDAO;
+    private ReizigerDAO reizigerDAO;
 
     public AdresDAOPsql(Connection conn) {
         this.conn = conn;
+    }
+
+    public AdresDAOPsql(Connection conn, ReizigerDAO reizigerDAO) {
+        this.conn = conn;
+        this.reizigerDAO = reizigerDAO;
+    }
+
+    public void setReizigerDAO(ReizigerDAO reizigerDAO) {
+        this.reizigerDAO = reizigerDAO;
     }
 
     @Override
@@ -28,9 +37,11 @@ public class AdresDAOPsql implements AdresDAO{
             statement.setString(4, adres.getWoonplaats());
             statement.setInt(5, adres.getReiziger().getId());
             statement.setInt(6, adres.getId());
+
             if (statement.executeUpdate() != 0) {
                 return true;
             }
+
         } catch (Exception e) {
             e.getMessage();
         }
@@ -65,9 +76,11 @@ public class AdresDAOPsql implements AdresDAO{
             String sql = "delete from adres where adres_id = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setInt(1, adres.getId());
+
             if (statement.executeUpdate() != 0) {
                 return true;
             }
+
         } catch (Exception e) {
             e.getMessage();
         }

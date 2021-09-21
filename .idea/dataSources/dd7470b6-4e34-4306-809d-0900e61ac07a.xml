@@ -983,6 +983,7 @@ UC/10
     </access-method>
     <table id="34" parent="21" name="adres">
       <ObjectId>17672</ObjectId>
+      <Outdated>1</Outdated>
       <Owner>postgres</Owner>
       <StateNumber>826</StateNumber>
     </table>

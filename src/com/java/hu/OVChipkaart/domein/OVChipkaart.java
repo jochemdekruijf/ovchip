@@ -1,5 +1,7 @@
 package com.java.hu.OVChipkaart.domein;
 
+import com.java.hu.reiziger.domein.Reiziger;
+
 import java.sql.Date;
 
 public class OVChipkaart {
@@ -7,14 +9,14 @@ public class OVChipkaart {
     private Date gedigTot;
     private int klasse;
     private int saldo;
-    private int reiziger_id;
+    private Reiziger reiziger;
 
-    public OVChipkaart(int kaartnummer, Date gedigTot, int klasse, int saldo, int reiziger_id) {
+    public OVChipkaart(int kaartnummer, Date gedigTot, int klasse, int saldo, Reiziger reiziger) {
         this.kaartnummer = kaartnummer;
         this.gedigTot = gedigTot;
         this.klasse = klasse;
         this.saldo = saldo;
-        this.reiziger_id = reiziger_id;
+        this.reiziger= reiziger;
     }
 
     public OVChipkaart() {
@@ -53,12 +55,12 @@ public class OVChipkaart {
         this.saldo = saldo;
     }
 
-    public int getReiziger_id() {
-        return reiziger_id;
+    public Reiziger getReiziger() {
+        return reiziger;
     }
 
-    public void setReiziger_id(int reiziger_id) {
-        this.reiziger_id = reiziger_id;
+    public void setReiziger(Reiziger reiziger) {
+        this.reiziger = reiziger;
     }
 
     @Override
@@ -68,7 +70,7 @@ public class OVChipkaart {
                 ", gedigTot=" + gedigTot +
                 ", klasse='" + klasse + '\'' +
                 ", saldo=" + saldo +
-                ", reiziger_id=" + reiziger_id +
+                ", reiziger=" + reiziger +
                 '}';
     }
 }
