@@ -1,5 +1,6 @@
 package com.java.hu.adres.data;
 
+
 import com.java.hu.adres.domein.Adres;
 import com.java.hu.reiziger.data.ReizigerDAO;
 import com.java.hu.reiziger.data.ReizigerDAOPsql;

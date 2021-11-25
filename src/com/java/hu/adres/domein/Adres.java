@@ -23,6 +23,9 @@ public class Adres {
     public Adres() {
     }
 
+    public Adres(int id, String postcode, String huisnummer, String teststraat, String groningen, com.java.hu.p5.domein.Reiziger byId) {
+    }
+
     public int getId() {
         return id;
     }

@@ -989,21 +989,25 @@ UC/10
     </table>
     <table id="35" parent="21" name="ov_chipkaart">
       <ObjectId>17689</ObjectId>
+      <Outdated>1</Outdated>
       <Owner>postgres</Owner>
       <StateNumber>826</StateNumber>
     </table>
     <table id="36" parent="21" name="ov_chipkaart_product">
       <ObjectId>17707</ObjectId>
+      <Outdated>1</Outdated>
       <Owner>postgres</Owner>
       <StateNumber>826</StateNumber>
     </table>
     <table id="37" parent="21" name="product">
       <ObjectId>17699</ObjectId>
+      <Outdated>1</Outdated>
       <Owner>postgres</Owner>
       <StateNumber>826</StateNumber>
     </table>
     <table id="38" parent="21" name="reiziger">
       <ObjectId>17667</ObjectId>
+      <Outdated>1</Outdated>
       <Owner>postgres</Owner>
       <StateNumber>826</StateNumber>
     </table>

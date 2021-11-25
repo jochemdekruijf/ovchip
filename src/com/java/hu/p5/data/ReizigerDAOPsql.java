@@ -1,48 +1,24 @@
-package com.java.hu.reiziger.data;
+package com.java.hu.p5.data;
 
-import com.java.hu.OVChipkaart.data.OVChipkaartDAO;
-import com.java.hu.OVChipkaart.data.OVChipkaartDAOPsql;
-import com.java.hu.OVChipkaart.domein.OVChipkaart;
-
-import com.java.hu.adres.data.AdresDAO;
-import com.java.hu.adres.data.AdresDAOPsql;
-import com.java.hu.reiziger.domein.Reiziger;
+import com.java.hu.p5.domein.OVChipkaart;
+import com.java.hu.p5.domein.Reiziger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReizigerDAOPsql implements ReizigerDAO{
+public class ReizigerDAOPsql implements ReizigerDAO {
     private Connection conn;
-    private AdresDAO adao;
+//    private AdresDAO adao;
     private OVChipkaartDAO ovdao;
 
     public ReizigerDAOPsql(Connection conn) {
         this.conn = conn;
     }
 
-    public ReizigerDAOPsql(Connection conn, AdresDAOPsql adao, OVChipkaartDAOPsql ovdao) {
-        this.conn = conn;
-        this.adao = adao;
-        this.ovdao = ovdao;
-        adao.setReizigerDAO(this);
-        ovdao.setReizigerDAO(this);
-    }
-
-    public ReizigerDAOPsql(Connection conn, AdresDAOPsql adao) {
-        this.conn = conn;
-        this.adao = adao;
-        adao.setReizigerDAO(this);
-    }
-
-    public ReizigerDAOPsql(Connection conn, OVChipkaartDAOPsql ovdao) {
+    public ReizigerDAOPsql(Connection conn, OVChipkaartDAO ovdao) {
         this.conn = conn;
         this.ovdao = ovdao;
-        ovdao.setReizigerDAO(this);
-    }
-
-    public void setAdao(AdresDAO adao) {
-        this.adao = adao;
     }
 
     public void setOvdao(OVChipkaartDAO ovdao) {
@@ -61,9 +37,9 @@ public class ReizigerDAOPsql implements ReizigerDAO{
             statement.setDate(5, reiziger.getGeboortedatum());
 
             if(statement.executeUpdate() != 0) {
-                if(reiziger.getAdres() != null) {
-                    adao.save(reiziger.getAdres());
-                }
+//                if(reiziger.getAdres() != null) {
+//                    adao.save(reiziger.getAdres());
+//                }
 
                 if(reiziger.getOvs() != null) {
                     if (!reiziger.getOvs().isEmpty()) {
@@ -99,9 +75,9 @@ public class ReizigerDAOPsql implements ReizigerDAO{
                     return true;
                 }
 
-                if (!adao.update(reiziger.getAdres())) {
-                    adao.update(reiziger.getAdres());
-                }
+//                if (!adao.update(reiziger.getAdres())) {
+//                    adao.update(reiziger.getAdres());
+//                }
 
                 if (ovdao.findByReiziger(reiziger).containsAll(reiziger.getOvs())){
                     for (OVChipkaart o : reiziger.getOvs()) {
@@ -124,10 +100,9 @@ public class ReizigerDAOPsql implements ReizigerDAO{
 
     @Override
     public boolean delete(Reiziger reiziger) {
-
-        if(reiziger.getAdres() != null) {
-            adao.delete(reiziger.getAdres());
-        }
+//        if(reiziger.getAdres() != null) {
+//            adao.delete(reiziger.getAdres());
+//        }
 
         if(reiziger.getOvs() != null) {
             for (OVChipkaart o : reiziger.getOvs()) {
@@ -152,7 +127,6 @@ public class ReizigerDAOPsql implements ReizigerDAO{
 
     @Override
     public Reiziger findById(int id) {
-
         Reiziger re = new Reiziger();
 
         try {
@@ -168,7 +142,7 @@ public class ReizigerDAOPsql implements ReizigerDAO{
                 re.setTussenvoegsel(result.getString("tussenvoegsel"));
                 re.setAchternaam(result.getString("achternaam"));
                 re.setGeboortedatum(result.getDate("geboortedatum"));
-                re.setAdres(adao.findByReiziger(re));
+//                re.setAdres(adao.findByReiziger(re));
                 re.setOvs(ovdao.findByReiziger(re));
             }
 
@@ -183,7 +157,7 @@ public class ReizigerDAOPsql implements ReizigerDAO{
 
     @Override
     public List<Reiziger> findByGbdatum(String datum) {
-        adao = new AdresDAOPsql(conn);
+//        adao = new AdresDAOPsql(conn);
 
         ArrayList<Reiziger> rgs = new ArrayList<>();
 
@@ -203,7 +177,7 @@ public class ReizigerDAOPsql implements ReizigerDAO{
                 r.setTussenvoegsel(result.getString("tussenvoegsel"));
                 r.setAchternaam(result.getString("achternaam"));
                 r.setGeboortedatum(result.getDate("geboortedatum"));
-                r.setAdres(adao.findByReiziger(r));
+//                r.setAdres(adao.findByReiziger(r));
                 r.setOvs(ovdao.findByReiziger(r));
                 rgs.add(r);
             }
@@ -217,8 +191,8 @@ public class ReizigerDAOPsql implements ReizigerDAO{
     }
 
     @Override
-    public List<Reiziger> findAll(){
-        adao = new AdresDAOPsql(conn);
+    public List<Reiziger> findAll() {
+//        adao = new AdresDAOPsql(conn);
 
         ArrayList<Reiziger> rgs = new ArrayList<>();
 
@@ -236,11 +210,11 @@ public class ReizigerDAOPsql implements ReizigerDAO{
                 r.setGeboortedatum(result.getDate("geboortedatum"));
                 rgs.add(r);
 
-                r.setAdres(adao.findByReiziger(r));
+//                r.setAdres(adao.findByReiziger(r));
 
-//                if (ovdao.findByReiziger(r) != null) {
-//                    r.setOvs(ovdao.findByReiziger(r));
-//                }
+                if (ovdao.findByReiziger(r) != null) {
+                    r.setOvs(ovdao.findByReiziger(r));
+                }
 
 
             }

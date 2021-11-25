@@ -1,9 +1,7 @@
-package com.java.hu.OVChipkaart.domein;
-
-import com.java.hu.p5.domein.Product;
-import com.java.hu.reiziger.domein.Reiziger;
+package com.java.hu.p5.domein;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class OVChipkaart {
@@ -12,21 +10,19 @@ public class OVChipkaart {
     private int klasse;
     private int saldo;
     private Reiziger reiziger;
-    private List<Product> prs;
+    private List<Product> producten;
+
+    public OVChipkaart() {
+        this.producten = new ArrayList<>();
+    }
 
     public OVChipkaart(int kaartnummer, Date gedigTot, int klasse, int saldo, Reiziger reiziger) {
         this.kaartnummer = kaartnummer;
         this.gedigTot = gedigTot;
         this.klasse = klasse;
         this.saldo = saldo;
-        this.reiziger= reiziger;
-    }
-
-    public OVChipkaart() {
-
-    }
-
-    public OVChipkaart(int kaartnummer, Date gedigTot, int klasse, int saldo, com.java.hu.p5.domein.Reiziger byId) {
+        this.reiziger = reiziger;
+        this.producten = new ArrayList<>();
     }
 
     public int getKaartnummer() {
@@ -69,21 +65,45 @@ public class OVChipkaart {
         this.reiziger = reiziger;
     }
 
+    public List<Product> getProducten() {
+        return producten;
+    }
+
+    public void setProducten(List<Product> producten) {
+        this.producten = producten;
+    }
+
+    public void addProduct(Product product) {
+        if (!producten.contains(product)) {
+            this.producten.add(product);
+        }
+        if (!product.getOvs().contains(this)) {
+            product.addOv(this);
+        }
+    }
+
+    public void removeProduct(Product product) {
+        this.producten.remove(product);
+        product.removeOv(this);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OVChipkaart that = (OVChipkaart) o;
+        return kaartnummer == that.kaartnummer;
+    }
+
     @Override
     public String toString() {
-//        String reizgerId = null;
-//
-//        if (String.valueOf(reiziger.getId()) != null) {
-//            reizgerId = String.valueOf(reiziger.getId());
-//
-//        }
-
         return "OVChipkaart{" +
                 "kaartnummer=" + kaartnummer +
                 ", gedigTot=" + gedigTot +
-                ", klasse='" + klasse + '\'' +
+                ", klasse=" + klasse +
                 ", saldo=" + saldo +
-//                ", reizigerId=" + reiziger.getId()+
+                ", reiziger=" + reiziger +
+                ", producten=" + producten +
                 '}';
     }
 }
